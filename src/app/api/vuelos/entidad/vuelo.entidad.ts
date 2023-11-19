@@ -45,4 +45,28 @@ export class Vuelo {
     await this.connection.close();
     return response;
   }
+
+  public async getInfoToCreate() {
+    if (!this.connection) {
+      return;
+    }
+    const sql = `
+      DECLARE
+      BEGIN
+      vuelo_utils.obtener_info_para_crear(:aeropuertos, :aviones);
+      END;
+    `;
+
+    const aeropuertos = { dir: oracleDB.BIND_OUT, type: oracleDB.CURSOR };
+    const aviones = { dir: oracleDB.BIND_OUT, type: oracleDB.CURSOR };
+    const result = await this.connection.execute(sql, { aeropuertos, aviones });
+
+    const response = {};
+    //@ts-ignore
+    response.aeropuertos = await getCursorInfo(result.outBinds.aeropuertos);
+    //@ts-ignore
+    response.aviones = await getCursorInfo(result.outBinds.aviones);
+    await this.connection.close();
+    return response;
+  }
 }
