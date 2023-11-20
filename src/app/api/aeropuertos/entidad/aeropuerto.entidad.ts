@@ -1,7 +1,7 @@
 import oracleDB, { CURSOR } from "oracledb";
 import { getCursorInfo } from "../../repository";
 
-type aeropuerto = {
+export type aeropuerto = {
   id?: number;
   nombre: string;
   ciudad: string;
@@ -109,6 +109,63 @@ export class Aeropuerto {
       };
     } catch (error) {
       await this.connection.close();
+      return error;
+    }
+  }
+
+  public async getOne(aeropuerto_id: number) {
+    this.id = aeropuerto_id;
+    if (!this.connection) {
+      return;
+    }
+  }
+
+  public async update(aeropuerto_id: number, aeropuerto: aeropuerto) {
+    this.id = aeropuerto_id;
+    this.nombre = aeropuerto.nombre;
+    this.ciudad = aeropuerto.ciudad;
+    this.pais = aeropuerto.pais;
+    if (!this.connection) {
+      return;
+    }
+    const sql = `
+      DECLARE 
+      BEGIN
+        aeropuerto_crud.actualizar_aeropuerto(:aeropuerto_id, :nombre, :pais, :ciudad);
+      END;
+    `;
+
+    try {
+      const response = await this.connection.execute(sql, {
+        aeropuerto_id: this.id,
+        nombre: this.nombre,
+        pais: this.pais,
+        ciudad: this.ciudad,
+      });
+      return response;
+    } catch (error) {
+      console.log(error);
+      return error;
+    }
+  }
+
+  public async delete(aeropuerto_id: number) {
+    this.id = aeropuerto_id;
+    if (!this.connection) {
+      return;
+    }
+    const sql = `
+      DECLARE 
+      BEGIN
+        aeropuerto_crud.eliminar_aeropuerto(${this.id});
+      END;
+    `;
+
+    try {
+      const response = await this.connection.execute(sql);
+      return response;
+    } catch (error) {
+      console.log(error);
       return error;
     }
   }

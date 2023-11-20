@@ -53,7 +53,7 @@ export class Vuelo {
     const sql = `
       DECLARE
       BEGIN
-      vuelo_utils.obtener_info_para_crear(:aeropuertos, :aviones);
+        vuelo_utils.obtener_info_para_crear(:aeropuertos, :aviones);
       END;
     `;
 
@@ -81,6 +81,7 @@ export class Vuelo {
     this.destino = data.destino;
     this.fecha_salida = new Date(data.fechaSalida);
     this.fecha_llegada = new Date(data.fechaLlegada);
+
     const sql = `
       DECLARE
       BEGIN
