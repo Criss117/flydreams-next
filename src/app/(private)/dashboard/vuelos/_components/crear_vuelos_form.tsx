@@ -16,15 +16,20 @@ const CrearVuelosForm = ({ datos }: { datos: Datos | undefined }) => {
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (
-      !destino ||
-      !avionId ||
-      !aeroSalidaId ||
-      !aeroLlegadaId ||
-      !fechaSalida ||
-      !fechallegada
-    ) {
-      setError("Faltan datos");
+    // if (
+    //   !destino ||
+    //   !avionId ||
+    //   !aeroSalidaId ||
+    //   !aeroLlegadaId ||
+    //   !fechaSalida ||
+    //   !fechallegada
+    // ) {
+    //   setError("Faltan datos");
+    //   return;
+    // }
+
+    if (aeroLlegadaId === aeroSalidaId) {
+      setError("Faltan de datos");
       return;
     }
     setLoading(true);

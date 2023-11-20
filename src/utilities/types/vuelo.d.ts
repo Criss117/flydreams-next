@@ -10,3 +10,12 @@ export type vuelo = {
   FECHA_LLEGADA: string;
   CANTIDAD_PASAJEROS: number;
 };
+
+export type VueloFront = {
+  destino: string;
+  fechaSalida: string;
+  fechaLlegada: string;
+  aeroSalidaId: number;
+  aeroLlegadaId: number;
+  avionId: number;
+};

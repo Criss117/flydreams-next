@@ -8,5 +8,5 @@ export async function POST(request: Request) {
   const aeropuerto = new Aeropuerto(connection);
   await aeropuerto.create(body);
   connection.close();
-  return NextResponse.json({ body, message: "ok" });
+  return NextResponse.json({ message: "ok" });
 }
