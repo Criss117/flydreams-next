@@ -1,10 +1,8 @@
 import { NextResponse } from "next/server";
-import { getConnection } from "../../../repository";
 import { Vuelo } from "../../entidad";
 
 export async function GET() {
-  const connection = await getConnection();
-  const vuelo = new Vuelo(connection);
+  const vuelo = new Vuelo();
   const response = await vuelo.getAll();
   //connection.close();
   return NextResponse.json(response);

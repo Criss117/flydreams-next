@@ -1,5 +1,4 @@
 import oracleDB, { CURSOR } from "oracledb";
-import { getCursorInfo } from "../../repository";
 
 export type aeropuerto = {
   id?: number;
