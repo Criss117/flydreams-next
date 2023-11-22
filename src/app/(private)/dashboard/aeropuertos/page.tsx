@@ -12,7 +12,7 @@ const Aeropuertos = () => {
     const getAeropuertos = async () => {
       const res = await fetch(url);
       const data = await res.json();
-      setAeropuertos(data);
+      setAeropuertos(data.aeropuertos);
     };
     getAeropuertos();
     setLoading(false);

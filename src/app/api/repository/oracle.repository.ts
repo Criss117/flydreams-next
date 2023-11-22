@@ -1,5 +1,4 @@
 import oracleDB from "oracledb";
-import { aeropuerto } from "../aeropuertos/entidad/aeropuerto.entidad";
 
 export type OracleType = {
   type: number | any;
@@ -39,7 +38,7 @@ export class OracleRepository {
       }
       return response;
     } catch (error) {
-      console.log(error);
+      console.error(error);
       return error;
     }
   }
@@ -58,9 +57,17 @@ export class OracleRepository {
       return `:${bindName}`;
     })}); END;`;
 
-    const result = await this.executeQuery(query, { ...parameters, response });
-    //@ts-ignore
-    return result.outBinds;
+    try {
+      const result = await this.executeQuery(query, {
+        ...parameters,
+        response,
+      });
+      //@ts-ignore
+      return result.outBinds;
+    } catch (error) {
+      console.error(error);
+      return error;
+    }
   }
 
   private async executeQuery(query: string, parameters: Parameters) {

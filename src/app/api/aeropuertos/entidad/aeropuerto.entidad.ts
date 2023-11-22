@@ -38,53 +38,75 @@ export class Aeropuerto extends OracleRepository {
       val: this.aeropuerto_id,
     };
     const aeropuerto = { dir: oracleDB.BIND_OUT, type: AeropuertoRowTypeClass };
-    const llegadaCursor = { dir: oracleDB.BIND_OUT, type: oracleDB.CURSOR };
-    const salidaCursor = { dir: oracleDB.BIND_OUT, type: oracleDB.CURSOR };
+    const llegada = { dir: oracleDB.BIND_OUT, type: oracleDB.CURSOR };
+    const salida = { dir: oracleDB.BIND_OUT, type: oracleDB.CURSOR };
 
     const parameters = {
       aeropuerto_id,
       aeropuerto,
-      llegadaCursor,
-      salidaCursor,
+      llegada,
+      salida,
     };
     return this.executeProcedure(procedure, parameters);
   }
 
-  // public async create(aeropuerto: aeropuerto) {
-  //   this.nombre = aeropuerto.nombre;
-  //   this.ciudad = aeropuerto.ciudad;
-  //   this.pais = aeropuerto.pais;
+  public async create(aeropuerto: aeropuerto) {
+    this.nombre = aeropuerto.nombre;
+    this.ciudad = aeropuerto.ciudad;
+    this.pais = aeropuerto.pais;
 
-  //   if (!this.connection) {
-  //     return;
-  //   }
-  //   const sql = `
-  //     DECLARE
-  //     BEGIN
-  //       aeropuerto_crud.crear_aeropuerto(:nombre, :pais, :ciudad);
-  //     END;
-  //   `;
+    const procedure = "aeropuerto_crud.crear_aeropuerto";
+    const response = {
+      dir: oracleDB.BIND_OUT,
+      type: oracleDB.DB_TYPE_BOOLEAN,
+      bindName: "response",
+    };
+    const parameters = {
+      nombre: this.nombre,
+      ciudad: this.ciudad,
+      pais: this.pais,
+    };
+    const result = await this.executeFunction(procedure, parameters, response);
+    return result;
+  }
 
-  //   try {
-  //     const response = await this.connection.execute(sql, {
-  //       nombre: this.nombre,
-  //       pais: this.pais,
-  //       ciudad: this.ciudad,
-  //     });
-  //     return response;
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // }
+  public async update(aeropuerto_id: number, aeropuerto: aeropuerto) {
+    this.aeropuerto_id = aeropuerto_id;
+    this.nombre = aeropuerto.nombre;
+    this.ciudad = aeropuerto.ciudad;
+    this.pais = aeropuerto.pais;
 
-  //
-
-  // public async getOne(aeropuerto_id: number) {
-  //   this.id = aeropuerto_id;
-  //   if (!this.connection) {
-  //     return;
-  //   }
-  // }
+    const procedure = "aeropuerto_crud.actualizar_aeropuerto";
+    const response = {
+      dir: oracleDB.BIND_OUT,
+      type: oracleDB.DB_TYPE_BOOLEAN,
+      bindName: "response",
+    };
+    const parameters = {
+      aeropuerto_id: this.aeropuerto_id,
+      nombre: this.nombre,
+      pais: this.pais,
+      ciudad: this.ciudad,
+    };
+    const result = await this.executeFunction(procedure, parameters, response);
+    return result;
+  }
+  public async getOne(aeropuerto_id: number) {
+    this.aeropuerto_id = aeropuerto_id;
+    const AeropuertoRowTypeClass = await this.getRowType(
+      "AEROPUERTO_CRUD.AEROPUERTO_TYPE"
+    );
+    const procedure = "aeropuerto_crud.leer_aeropuerto";
+    const aeropuerto = {
+      dir: oracleDB.BIND_OUT,
+      type: AeropuertoRowTypeClass,
+    };
+    const parameters = {
+      aeropuerto_id: this.aeropuerto_id,
+      aeropuerto,
+    };
+    return this.executeProcedure(procedure, parameters);
+  }
 
   // public async update(aeropuerto_id: number, aeropuerto: aeropuerto) {
   //   this.id = aeropuerto_id;

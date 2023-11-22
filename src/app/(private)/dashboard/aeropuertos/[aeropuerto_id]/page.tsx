@@ -8,7 +8,7 @@ import ShowInfo from "./_components/show_info";
 const Aeropuerto = ({ params }: { params: { aeropuerto_id: string } }) => {
   const url =
     process.env.NEXT_PUBLIC_API_FRONT_URL +
-    "/aeropuertos/get/info/" +
+    "/aeropuertos/get/with-info/" +
     params.aeropuerto_id;
 
   const [aeropuertoInfo, setAeropuertoInfo] = useState<aeropuertoInfo>();

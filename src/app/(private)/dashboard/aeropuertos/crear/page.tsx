@@ -26,8 +26,8 @@ const AeropuertoForm = () => {
       },
       body: JSON.stringify({
         nombre,
-        pais,
         ciudad,
+        pais,
       }),
     });
 

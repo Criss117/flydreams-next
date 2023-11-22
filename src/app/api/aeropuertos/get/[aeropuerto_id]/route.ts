@@ -10,6 +10,6 @@ type params = {
 export async function GET(request: Request, { params }: params) {
   const { aeropuerto_id } = params;
   const aeropuerto = new Aeropuerto();
-  const response = await aeropuerto.getInfo(+aeropuerto_id);
+  const response = await aeropuerto.getOne(+aeropuerto_id);
   return NextResponse.json(response);
 }

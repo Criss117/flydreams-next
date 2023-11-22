@@ -12,7 +12,7 @@ const Vuelos = () => {
     const getVuelos = async () => {
       const res = await fetch(url);
       const data = await res.json();
-      setVuelos(data);
+      setVuelos(data.vuelos);
     };
     getVuelos();
     setLoading(false);
