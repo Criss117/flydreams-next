@@ -3,7 +3,6 @@ import { Vuelo, vueloType } from "../entidad";
 export async function GET() {
   const vuelo = new Vuelo();
   const response = await vuelo.getInfoToCreate();
-  //connection.close();
   return NextResponse.json(response);
 }
 

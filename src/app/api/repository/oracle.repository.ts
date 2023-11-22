@@ -1,9 +1,11 @@
 import oracleDB from "oracledb";
+import { aeropuerto } from "../aeropuertos/entidad/aeropuerto.entidad";
 
 export type OracleType = {
-  type: number;
+  type: number | any;
   dir: number;
   bindName?: string;
+  val?: any;
 };
 export type Parameters = {
   [key: string]: OracleType | any;
@@ -21,20 +23,25 @@ export class OracleRepository {
       return `:${bindName}`;
     })}); END;`;
 
-    const result = await this.executeQuery(query, parameters);
-    const response = {};
+    try {
+      const result = await this.executeQuery(query, parameters);
+      const response = {};
+      for (const bindName of bindNames) {
+        if (parameters[bindName].type === oracleDB.CURSOR) {
+          //@ts-ignore
+          response[bindName] = await this.readCursor(result.outBinds[bindName]);
+        }
 
-    for (const bindName of bindNames) {
-      if (parameters[bindName].type === oracleDB.CURSOR) {
-        //@ts-ignore
-        response[bindName] = await this.readCursor(result.outBinds[bindName]);
-        break;
+        if (typeof parameters[bindName].type === "function") {
+          //@ts-ignore
+          response[bindName] = result.outBinds[bindName];
+        }
       }
-      console.log("no cursor");
+      return response;
+    } catch (error) {
+      console.log(error);
+      return error;
     }
-
-    await this.close();
-    return response;
   }
 
   public async executeFunction(
@@ -57,14 +64,19 @@ export class OracleRepository {
   }
 
   private async executeQuery(query: string, parameters: Parameters) {
-    this.connection = await this.getConnection();
-
     if (!this.connection) {
-      throw new Error("Connection terminated");
+      this.connection = await this.getConnection();
     }
-
     const result = await this.connection.execute(query, parameters);
     return result;
+  }
+
+  public async getRowType(type: string) {
+    if (!this.connection) {
+      this.connection = await this.getConnection();
+    }
+    const rowType = await this.connection.getDbObjectClass(type);
+    return rowType;
   }
 
   private async getConnection() {
@@ -78,7 +90,7 @@ export class OracleRepository {
 
   private async close() {
     if (!this.connection) {
-      throw new Error("Connection terminated");
+      return;
     }
     await this.connection.close();
   }

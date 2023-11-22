@@ -1,4 +1,3 @@
-import { getConnection } from "@/app/api/repository";
 import { NextResponse } from "next/server";
 import { Aeropuerto } from "../../entidad";
 
@@ -10,8 +9,7 @@ type params = {
 
 export async function GET(request: Request, { params }: params) {
   const { aeropuerto_id } = params;
-  const connection = await getConnection();
-  const aeropuerto = new Aeropuerto(connection);
+  const aeropuerto = new Aeropuerto();
   const response = await aeropuerto.getInfo(+aeropuerto_id);
   return NextResponse.json(response);
 }

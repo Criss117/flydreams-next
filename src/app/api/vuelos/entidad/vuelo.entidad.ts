@@ -1,9 +1,8 @@
 import oracleDB from "oracledb";
 import { OracleRepository } from "../../repository";
-import { aeropuerto } from "../../aeropuertos/entidad/aeropuerto.entidad";
 
 export type vueloType = {
-  vuelo_id: number;
+  vuelo_id?: number;
   aeropuerto_salida_id: number;
   aeropuerto_llegada_id: number;
   avion_id: number;
