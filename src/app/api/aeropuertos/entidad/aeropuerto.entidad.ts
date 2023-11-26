@@ -92,11 +92,11 @@ export class Aeropuerto extends OracleRepository {
     return result;
   }
   public async getOne(aeropuerto_id: number) {
-    this.aeropuerto_id = aeropuerto_id;
     const AeropuertoRowTypeClass = await this.getRowType(
       "AEROPUERTO_CRUD.AEROPUERTO_TYPE"
     );
     const procedure = "aeropuerto_crud.leer_aeropuerto";
+    this.aeropuerto_id = aeropuerto_id;
     const aeropuerto = {
       dir: oracleDB.BIND_OUT,
       type: AeropuertoRowTypeClass,

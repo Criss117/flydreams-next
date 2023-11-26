@@ -21,7 +21,6 @@ export class OracleRepository {
     BEGIN ${procedure}(${bindNames.map((bindName) => {
       return `:${bindName}`;
     })}); END;`;
-
     try {
       const result = await this.executeQuery(query, parameters);
       const response = {};
@@ -38,7 +37,6 @@ export class OracleRepository {
       }
       return response;
     } catch (error) {
-      console.error(error);
       return error;
     }
   }
@@ -56,7 +54,6 @@ export class OracleRepository {
       :${response.bindName} := ${functionName}(${bindNames.map((bindName) => {
       return `:${bindName}`;
     })}); END;`;
-
     try {
       const result = await this.executeQuery(query, {
         ...parameters,
@@ -65,7 +62,6 @@ export class OracleRepository {
       //@ts-ignore
       return result.outBinds;
     } catch (error) {
-      console.error(error);
       return error;
     }
   }

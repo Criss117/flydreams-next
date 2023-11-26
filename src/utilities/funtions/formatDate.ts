@@ -31,3 +31,30 @@ export function convertDateToDB(date: string): string {
     return date; // Devuelve la cadena original si no se puede convertir
   }
 }
+
+export function getHour(date: string) {
+  const newDate = new Date(date);
+  const hours = newDate.getHours();
+  const minutes = newDate.getMinutes();
+  const seconds = newDate.getSeconds();
+  return (
+    (hours < 10 ? "0" : "") +
+    hours +
+    ":" +
+    (minutes < 10 ? "0" : "") +
+    minutes +
+    ":" +
+    (seconds < 10 ? "0" : "") +
+    seconds
+  );
+}
+
+export function getDate(date: string) {
+  const originalDate = new Date(date);
+
+  const year = originalDate.getFullYear();
+  const month = ("0" + (originalDate.getMonth() + 1)).slice(-2);
+  const day = ("0" + originalDate.getDate()).slice(-2);
+
+  return year + "-" + month + "-" + day;
+}

@@ -6,5 +6,8 @@ export async function middleware(request: NextRequest) {
     const url = "http://localhost:3000/account/login";
     return NextResponse.redirect(url);
   }
-  return NextResponse.next();
+  if (currentPage === "/dashboard/vuelos") {
+    const url = "http://localhost:3000/dashboard/vuelos/1";
+    return NextResponse.redirect(url);
+  }
 }

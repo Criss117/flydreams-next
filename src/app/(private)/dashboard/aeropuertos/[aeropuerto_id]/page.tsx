@@ -13,6 +13,7 @@ const Aeropuerto = ({ params }: { params: { aeropuerto_id: string } }) => {
 
   const [aeropuertoInfo, setAeropuertoInfo] = useState<aeropuertoInfo>();
   const { push } = useRouter();
+
   useEffect(() => {
     const getAeropuertoInfo = async () => {
       const res = await fetch(url);
@@ -35,14 +36,16 @@ const Aeropuerto = ({ params }: { params: { aeropuerto_id: string } }) => {
         >
           Atras
         </Link>
-        <Link
-          href={`/dashboard/aeropuertos/actualizar/${
-            aeropuertoInfo?.aeropuerto?.AEROPUERTO_ID || 0
-          }`}
-          className="p-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-all"
-        >
-          Modificar Aeropuerto
-        </Link>
+        <div className="flex ">
+          <Link
+            href={`/dashboard/aeropuertos/actualizar/${
+              aeropuertoInfo?.aeropuerto?.AEROPUERTO_ID || 0
+            }`}
+            className="p-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-all"
+          >
+            Modificar Aeropuerto
+          </Link>
+        </div>
       </div>
       <ShowInfo aeropuertoInfo={aeropuertoInfo} />
     </main>

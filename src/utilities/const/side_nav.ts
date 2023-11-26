@@ -5,7 +5,7 @@ export const SideNavRoutes = [
   },
   {
     title: "Vuelos",
-    href: "/dashboard/vuelos",
+    href: "/dashboard/vuelos/1",
   },
   {
     title: "Aeropuertos",
