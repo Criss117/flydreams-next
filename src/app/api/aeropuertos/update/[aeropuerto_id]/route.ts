@@ -1,17 +1,16 @@
 import { Aeropuerto, aeropuerto } from "../../entidad";
 import { NextResponse } from "next/server";
 
-type params = {
+type Params = {
   params: {
     aeropuerto_id: string;
   };
 };
 
-export async function PUT(request: Request, { params }: params) {
+export async function PUT(request: Request, { params }: Params) {
   const { aeropuerto_id } = params;
   const body = await request.json();
-  const newAeropuerto: aeropuerto = body;
   const aeropuerto = new Aeropuerto();
-  const response = await aeropuerto.update(+aeropuerto_id, newAeropuerto);
+  const response = await aeropuerto.update(+aeropuerto_id, body);
   return NextResponse.json(response);
 }

@@ -54,6 +54,12 @@ export class OracleRepository {
       :${response.bindName} := ${functionName}(${bindNames.map((bindName) => {
       return `:${bindName}`;
     })}); END;`;
+    // console.log("------------------------");
+    // console.log(query);
+    // console.log("------------------------");
+    // console.log(parameters);
+    // console.log("------------------------");
+    // return { msg: "hola" };
     try {
       const result = await this.executeQuery(query, {
         ...parameters,

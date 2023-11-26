@@ -2,7 +2,7 @@ import { vuelo } from ".";
 
 export type aeropuerto = {
   AEROPUERTO_ID: number;
-  CIUDAD: number;
+  CIUDAD: string;
   NOMBRE: string;
   PAIS: string;
 };

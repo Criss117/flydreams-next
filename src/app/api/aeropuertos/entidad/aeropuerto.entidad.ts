@@ -70,23 +70,52 @@ export class Aeropuerto extends OracleRepository {
     return result;
   }
 
-  public async update(aeropuerto_id: number, aeropuerto: aeropuerto) {
-    this.aeropuerto_id = aeropuerto_id;
-    this.nombre = aeropuerto.nombre;
-    this.ciudad = aeropuerto.ciudad;
-    this.pais = aeropuerto.pais;
-
-    const procedure = "aeropuerto_crud.actualizar_aeropuerto";
+  public async delete(id: number) {
+    this.aeropuerto_id = id;
+    const procedure = "aeropuerto_crud.eliminar_aeropuerto";
+    const aeropuerto_id = {
+      dir: oracleDB.BIND_IN,
+      type: oracleDB.NUMBER,
+      val: this.aeropuerto_id,
+    };
     const response = {
       dir: oracleDB.BIND_OUT,
       type: oracleDB.DB_TYPE_BOOLEAN,
       bindName: "response",
     };
+    const parameters = { aeropuerto_id };
+    const result = await this.executeFunction(procedure, parameters, response);
+    return result;
+  }
+
+  public async update(id: number, aeropuerto: aeropuerto) {
+    this.aeropuerto_id = id;
+    this.nombre = aeropuerto.nombre;
+    this.ciudad = aeropuerto.ciudad;
+    this.pais = aeropuerto.pais;
+    const AeroRowTypeClass = await this.getRowType(
+      "AEROPUERTO_CRUD.AEROPUERTO_TYPE"
+    );
+
+    const procedure = "aeropuerto_crud.actualizar_aeropuerto";
+    const aero_info = new AeroRowTypeClass({
+      NOMBRE: this.nombre,
+      CIUDAD: this.ciudad,
+      PAIS: this.pais,
+    });
+    const aeropuerto_id = {
+      dir: oracleDB.BIND_IN,
+      type: oracleDB.NUMBER,
+      val: this.aeropuerto_id,
+    };
     const parameters = {
-      aeropuerto_id: this.aeropuerto_id,
-      nombre: this.nombre,
-      pais: this.pais,
-      ciudad: this.ciudad,
+      aeropuerto_id,
+      aero_info,
+    };
+    const response = {
+      dir: oracleDB.BIND_OUT,
+      type: oracleDB.DB_TYPE_BOOLEAN,
+      bindName: "response",
     };
     const result = await this.executeFunction(procedure, parameters, response);
     return result;
@@ -130,27 +159,6 @@ export class Aeropuerto extends OracleRepository {
   //       pais: this.pais,
   //       ciudad: this.ciudad,
   //     });
-  //     return response;
-  //   } catch (error) {
-  //     console.log(error);
-  //     return error;
-  //   }
-  // }
-
-  // public async delete(aeropuerto_id: number) {
-  //   this.id = aeropuerto_id;
-  //   if (!this.connection) {
-  //     return;
-  //   }
-  //   const sql = `
-  //     DECLARE
-  //     BEGIN
-  //       aeropuerto_crud.eliminar_aeropuerto(${this.id});
-  //     END;
-  //   `;
-
-  //   try {
-  //     const response = await this.connection.execute(sql);
   //     return response;
   //   } catch (error) {
   //     console.log(error);

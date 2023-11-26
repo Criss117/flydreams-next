@@ -1,12 +1,11 @@
 import { vuelo } from "@/utilities/types";
 import Link from "next/link";
 import { formatDate } from "../../../../utilities/funtions/formatDate";
-import { aeropuerto } from "../../../../utilities/types/aeropuerto";
 
 const VueloCard = ({ vuelo }: { vuelo: vuelo }) => {
   return (
     <Link
-      href={`/dashboard/vuelos/${vuelo.VUELO_ID}`}
+      href={`/dashboard/vuelos/actualizar/${vuelo.VUELO_ID}`}
       className="
         bg-blue-500 
         rounded-lg 

@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server";
-import { getConnection } from "../../repository";
-import { Aeropuerto } from "../entidad";
+import { Aeropuerto } from "../../entidad";
 
 type params = {
   params: {
@@ -10,8 +9,7 @@ type params = {
 
 export async function DELETE(request: Request, { params }: params) {
   const { aeropuerto_id } = params;
-  const connection = await getConnection();
-  const aeropuerto = new Aeropuerto(connection);
+  const aeropuerto = new Aeropuerto();
   const response = await aeropuerto.delete(+aeropuerto_id);
   return NextResponse.json(response);
 }

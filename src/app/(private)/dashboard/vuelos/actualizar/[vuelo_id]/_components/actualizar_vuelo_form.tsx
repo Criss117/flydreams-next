@@ -41,19 +41,19 @@ const ActualizarVueloForm = ({ datos, vueloInfo }: ActualizarVueloProps) => {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // if (
-    //   destino === "" ||
-    //   avionId <= 0 ||
-    //   aeroSalidaId <= 0 ||
-    //   aeroLlegadaId <= 0 ||
-    //   fechaSalida === "" ||
-    //   fechallegada === "" ||
-    //   horaSalida === "" ||
-    //   horallegada === ""
-    // ) {
-    //   setError("Faltan datos");
-    //   return;
-    // }
+    if (
+      !destino ||
+      !avionId ||
+      !aeroSalidaId ||
+      !aeroLlegadaId ||
+      !fechaSalida ||
+      !fechallegada ||
+      !horaSalida ||
+      !horallegada
+    ) {
+      setError("Faltan datos");
+      return;
+    }
 
     if (aeroLlegadaId === aeroSalidaId) {
       setError("Faltan de datos");
