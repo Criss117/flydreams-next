@@ -25,7 +25,12 @@ export class Personas extends OracleRepository {
   public async executePersonPackage(
     persona_info: PersonaType,
     procedure: string,
-    parameters: any
+    parameters: any,
+    response: {
+      dir: number;
+      type: number;
+      bindName: string;
+    }
   ) {
     this.persona_id = persona_info.persona_id || this.persona_id;
     this.genero_id = persona_info.genero_id;
@@ -47,12 +52,6 @@ export class Personas extends OracleRepository {
       CIUDAD_NAC: this.ciudad_nac,
     });
     const newParameters = { persona, ...parameters };
-
-    const response = {
-      dir: oracleDB.BIND_OUT,
-      type: oracleDB.NUMBER,
-      bindName: "response",
-    };
 
     const result = await this.executeFunction(
       procedure,

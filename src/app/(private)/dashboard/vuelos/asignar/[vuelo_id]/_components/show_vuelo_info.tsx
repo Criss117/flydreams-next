@@ -49,7 +49,7 @@ const ShowVueloInfo = ({ vuelo }: { vuelo: vuelo_info }) => {
     }
     setTimeout(() => {
       setError("");
-    }, 4000);
+    }, 5000);
     setRefresh(!refresh);
     setLoading(false);
   };
@@ -82,7 +82,11 @@ const ShowVueloInfo = ({ vuelo }: { vuelo: vuelo_info }) => {
         )}
       </section>
 
-      {error && <p className="text-center">{error}</p>}
+      {error && (
+        <p className="text-center p-2 text-black bg-red-300 rounded-lg">
+          {error}
+        </p>
+      )}
       <AssignStewardess fn={assignStewardess} loading={loading} />
     </>
   );

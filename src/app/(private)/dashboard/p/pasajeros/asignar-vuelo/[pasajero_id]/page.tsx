@@ -5,10 +5,15 @@ import { useRouter } from "next/navigation";
 import { FormEvent, useEffect, useState } from "react";
 
 const Asignar = ({ params }: { params: { pasajero_id: string } }) => {
-  const [pasajero, setPasajero] = useState<{}>();
+  const [pasajero, setPasajero] = useState<{
+    PASAJERO_ID: number;
+    NOMBRE: string;
+    APELLIDO: string;
+  }>();
   const [vuelos, setVuelos] = useState<vuelo[]>();
   const [vueloId, setVueloId] = useState<number>();
   const [error, setError] = useState<string>();
+  const [noError, setNoError] = useState<string>();
   const { push } = useRouter();
 
   useEffect(() => {
@@ -53,11 +58,16 @@ const Asignar = ({ params }: { params: { pasajero_id: string } }) => {
     };
     const res = await fetch(url, options);
     const data = await res.json();
-    if ((data.errorNum = 1)) {
+    console.log(data);
+    if (data.errorNum === 1) {
       setError("No se pudo asignar el vuelo");
     }
     if (data.response) {
-      push(`/dashboard/p/pasajeros`);
+      setNoError("Vuelo asignado con exito");
+      setTimeout(() => {
+        setNoError("");
+        push(`/dashboard/p/pasajeros/crear/pasajero`);
+      }, 5000);
     }
     return;
   };
@@ -83,6 +93,11 @@ const Asignar = ({ params }: { params: { pasajero_id: string } }) => {
           {error && (
             <div className="w-full bg-red-100 mb-10">
               <p className="text-3xl text-center">{error}</p>
+            </div>
+          )}
+          {noError && (
+            <div className="w-full bg-green-100 mb-10">
+              <p className="text-3xl text-center">{noError}</p>
             </div>
           )}
         </header>

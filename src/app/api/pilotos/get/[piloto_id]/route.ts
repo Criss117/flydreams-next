@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { Piloto } from "../../entidad/piloto.entidad";
+import { Piloto } from "../../entity/piloto.entity";
 
 type params = {
   params: {

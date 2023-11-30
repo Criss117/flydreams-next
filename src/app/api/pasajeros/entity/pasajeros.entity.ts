@@ -33,7 +33,18 @@ export class Pasajero extends Personas {
       PESO: this.peso,
     });
 
-    return this.executePersonPackage(persona_info, procedure, { pasajero });
+    const response = {
+      dir: oracleDB.BIND_OUT,
+      type: oracleDB.NUMBER,
+      bindName: "response",
+    };
+
+    return this.executePersonPackage(
+      persona_info,
+      procedure,
+      { pasajero },
+      response
+    );
   }
 
   public async asignarVuelo(vuelo_id: number, pasajero_id: number) {

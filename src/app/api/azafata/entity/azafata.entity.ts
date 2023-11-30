@@ -28,8 +28,17 @@ export class Azafata extends Personas {
       IDIOMA_NATAL: this.idioma_natal,
       IDIOMA_SECUNDARIO: this.idioma_secundario,
     });
-
-    return this.executePersonPackage(persona_info, procedure, { azafata });
+    const response = {
+      dir: oracleDB.BIND_OUT,
+      type: oracleDB.DB_TYPE_BOOLEAN,
+      bindName: "response",
+    };
+    return this.executePersonPackage(
+      persona_info,
+      procedure,
+      { azafata },
+      response
+    );
   }
 
   public async update(persona_info: PersonaType, azafata_info: AzafataType) {
@@ -45,8 +54,17 @@ export class Azafata extends Personas {
       IDIOMA_NATAL: this.idioma_natal,
       IDIOMA_SECUNDARIO: this.idioma_secundario,
     });
-
-    return this.executePersonPackage(persona_info, procedure, { azafata });
+    const response = {
+      dir: oracleDB.BIND_OUT,
+      type: oracleDB.DB_TYPE_BOOLEAN,
+      bindName: "response",
+    };
+    return this.executePersonPackage(
+      persona_info,
+      procedure,
+      { azafata },
+      response
+    );
   }
 
   public async getOne(id: number) {

@@ -26,18 +26,12 @@ const Pilotos = ({ params }: { params: { page: string } }) => {
   }, [page, push]);
   return (
     <main>
-      <div className="mt-2 mx-2 flex justify-around">
+      <div className="mt-2 mx-2 flex justify-start">
         <Link
           href={"/dashboard/home"}
           className="p-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-all"
         >
           Home
-        </Link>
-        <Link
-          href={"/dashboard/p/azafatas/crear/azafata"}
-          className="p-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-all"
-        >
-          Agregar Azafata
         </Link>
       </div>
       <section className="flex justify-center">
