@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { Vuelo } from "../../entidad";
+import { Vuelo } from "../../entity";
 type params = {
   params: {
     vuelo_id: string;

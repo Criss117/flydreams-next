@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { Vuelo, vueloType } from "../entidad";
+import { Vuelo, vueloType } from "../entity";
 export async function GET() {
   const vuelo = new Vuelo();
   const response = await vuelo.getInfoToCreate();

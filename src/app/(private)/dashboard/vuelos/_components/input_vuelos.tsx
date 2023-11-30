@@ -14,12 +14,12 @@ const InputVuelos = ({
   defaultValue?: string;
 }) => {
   return (
-    <fieldset>
+    <fieldset className="flex flex-col">
       <label>{label}</label>
       <input
         onChange={(e) => setState((e.target as HTMLInputElement).value)}
         type={type}
-        className="w-full"
+        className="w-[20rem]"
         placeholder={placeholder}
         defaultValue={defaultValue}
       />

@@ -6,6 +6,7 @@ import { vuelo_info } from "@/utilities/types/vuelo_info";
 import { formatDate } from "@/utilities";
 import DeleteSVG from "@/../public/svg/delete.svg";
 import EditSVG from "@/../public/svg/edit.svg";
+import PeopleSVG from "@/../public/svg/people.svg";
 
 const VuelosTableTBody = ({ vuelos }: { vuelos: vuelo_info[] }) => {
   const [vuelosState, setVuelosState] = useState<vuelo_info[]>([]);
@@ -70,17 +71,35 @@ const VuelosTableTBody = ({ vuelos }: { vuelos: vuelo_info[] }) => {
           </td>
           <td
             className="
+            px-2 
+            pb-1 
+            border-b-2 
+            border-black
+            hover:cursor-pointer 
+            hover:bg-red-200
+            transition-all
+            rounded-lg"
+            onClick={() => handleClick(vuelo)}
+          >
+            <Image src={DeleteSVG} alt="delete" width={20} height={20} />
+          </td>
+          <td
+            className="
               px-2 
               pb-1 
               border-b-2 
               border-black
               hover:cursor-pointer 
-              hover:bg-red-200
+              hover:bg-blue-200
               transition-all
               rounded-lg"
-            onClick={() => handleClick(vuelo)}
           >
-            <Image src={DeleteSVG} alt="delete" width={20} height={20} />
+            <Link
+              href={`/dashboard/vuelos/asignar/${vuelo.VUELO_ID}`}
+              className="flex justify-center"
+            >
+              <Image src={PeopleSVG} alt="delete" width={20} height={20} />
+            </Link>
           </td>
         </tr>
       ))}

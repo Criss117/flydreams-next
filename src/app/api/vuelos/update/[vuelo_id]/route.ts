@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { Vuelo } from "../../entidad";
+import { Vuelo } from "../../entity";
 
 type Params = {
   params: {
@@ -7,8 +7,8 @@ type Params = {
   };
 };
 
-export async function PUT(request: Request, params: Params) {
-  const { vuelo_id } = params.params;
+export async function PUT(request: Request, { params }: Params) {
+  const { vuelo_id } = params;
   const vuelo = new Vuelo();
   const body = await request.json();
   const response = await vuelo.update(+vuelo_id, body);

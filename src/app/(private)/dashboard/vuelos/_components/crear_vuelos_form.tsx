@@ -77,7 +77,9 @@ const CrearVuelosForm = ({ datos }: { datos: Datos | undefined }) => {
       <header className="flex flex-col text-center">
         <h2 className="text-3xl md:text-4xl font-bold">Agregar vuelo</h2>
       </header>
-      {error.length > 0 && <p>{error}</p>}
+      {error.length > 0 && (
+        <p className="p-2 bg-red-300 text-black rounded-lg">{error}</p>
+      )}
       <form
         onSubmit={(e) => handleSubmit(e)}
         className="flex flex-col w-full md:max-w-[80%] md:min-w-[60%] items-center gap-y-5"

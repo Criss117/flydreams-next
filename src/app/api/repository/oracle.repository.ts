@@ -37,6 +37,7 @@ export class OracleRepository {
       }
       return response;
     } catch (error) {
+      console.log(error);
       return error;
     }
   }
@@ -68,6 +69,7 @@ export class OracleRepository {
       //@ts-ignore
       return result.outBinds;
     } catch (error) {
+      console.log(error);
       return error;
     }
   }
@@ -113,5 +115,20 @@ export class OracleRepository {
     }
 
     return response;
+  }
+
+  public async getRowBindOut(recordName: string) {
+    const RowTypeClass = await this.getRowType(recordName);
+    const obj = {
+      dir: oracleDB.BIND_OUT,
+      type: RowTypeClass,
+    };
+    return obj;
+  }
+
+  public async getRowBindIn(recordName: string, parameters: {}) {
+    const RowTypeClass = await this.getRowType(recordName);
+    const obj = new RowTypeClass(parameters);
+    return obj;
   }
 }

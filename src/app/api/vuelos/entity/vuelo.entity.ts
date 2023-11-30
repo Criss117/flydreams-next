@@ -1,7 +1,5 @@
 import oracleDB from "oracledb";
 import { OracleRepository } from "../../repository";
-import { vuelo_info } from "@/utilities/types/vuelo_info";
-import { aeropuerto } from "../../aeropuertos/entidad/aeropuerto.entidad";
 
 export type vueloType = {
   vuelo_id?: number;
@@ -22,7 +20,6 @@ export class Vuelo extends OracleRepository {
   private destino: string = "";
   private fecha_salida: Date = new Date();
   private fecha_llegada: Date = new Date();
-  private cantidad_pasajeros: number = 0;
 
   public getAll(pagina_actual: number) {
     const procedure = "vuelo_crud.leer_vuelos";
